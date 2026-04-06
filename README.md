@@ -59,55 +59,52 @@ orders based on availability.
 
 ## Models 
 TeaShop: 
-• id (AutoField) 
-• name (CharField) 
-• location (CharField) 
-• rating (FloatField, 0 to 5) 
-• created_at (DateTimeField) 
+- id (AutoField) 
+- name (CharField) 
+- location (CharField) 
+- rating (FloatField, 0 to 5) 
+- created_at (DateTimeField) 
 TeaInventory: 
-• id (AutoField) 
-• tea_shop (ForeignKey to TeaShop) 
-• available_quantity (IntegerField – number of cups) 
-• price_per_cup (FloatField) 
+- id (AutoField) 
+- tea_shop (ForeignKey to TeaShop) 
+- available_quantity (IntegerField – number of cups) 
+- price_per_cup (FloatField) 
 Order: 
-• id (AutoField) 
-• tea_shop (ForeignKey to TeaShop) 
-• quantity (IntegerField) 
-• total_price (FloatField – auto calculated) 
-• order_time (DateTimeField) 
-• status (CharField: choices – PENDING, COMPLETED, CANCELLED) 
+- id (AutoField) 
+- tea_shop (ForeignKey to TeaShop) 
+- quantity (IntegerField) 
+- total_price (FloatField – auto calculated) 
+- order_time (DateTimeField) 
+- status (CharField: choices – PENDING, COMPLETED, CANCELLED) 
 
 ## API Endpoints 
 
 ️ Admin APIs (CRUD): 
-• GET /tea-shops/ → List all tea shops 
-• POST /tea-shops/ → Create a new tea shop 
-• PUT /tea-shops/<id>/ → Update a tea shop 
-• DELETE /tea-shops/<id>/ → Delete a tea shop 
-• GET /inventory/ → List inventory for all shops 
-• POST /inventory/ → Add/update inventory for a shop 
+- GET /tea-shops/ → List all tea shops 
+- POST /tea-shops/ → Create a new tea shop 
+- PUT /tea-shops/<id>/ → Update a tea shop 
+- DELETE /tea-shops/<id>/ → Delete a tea shop 
+- GET /inventory/ → List inventory for all shops 
+- POST /inventory/ → Add/update inventory for a shop 
 
  Customer APIs: 
-• GET /available-tea/ → List tea shops with available quantity > 0, sorted by rating or 
+- GET /available-tea/ → List tea shops with available quantity > 0, sorted by rating or 
 price 
-• POST /order/ 
-o Request: { "tea_shop": 1, "quantity": 2 } 
-o Checks if quantity is available 
-o Responds with total price and order status 
-o Reduces inventory if order is successful 
+- POST /order/ 
+- Request: { "tea_shop": 1, "quantity": 2 } 
+- Checks if quantity is available 
+- Responds with total price and order status 
+- Reduces inventory if order is successful 
 ✨ Optional Enhancements (Bonus) 
-• Add a view to scrape or generate ratings from a sample site (for tea reviews) 
-• HTML template to show top 5 rated tea shops 
-• Add basic Swagger API docs using drf-yasg 
+- Add a view to scrape or generate ratings from a sample site (for tea reviews) 
+- HTML template to show top 5 rated tea shops 
+- Add basic Swagger API docs using drf-yasg 
 ✅ Deliverables: 
-• Django project code (GitHub or ZIP) 
-• README with setup instructions and example API calls 
-• (Optional) Postman collection 
-• Notes on what was implemented vs what's pending (if applicable) 
-⏳ Deadline: 
-• 5 May 2025 
-Let me know if you want me to write up a sample README, Swagger sample, or initial 
-project structure for this. 
+- Django project code (GitHub or ZIP) 
+- README with setup instructions and example API calls 
+- (Optional) Postman collection 
+- Notes on what was implemented vs what's pending (if applicable) 
+
 
 
 
