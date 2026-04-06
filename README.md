@@ -95,15 +95,7 @@ price
 - Checks if quantity is available 
 - Responds with total price and order status 
 - Reduces inventory if order is successful 
-✨ Optional Enhancements (Bonus) 
-- Add a view to scrape or generate ratings from a sample site (for tea reviews) 
-- HTML template to show top 5 rated tea shops 
-- Add basic Swagger API docs using drf-yasg 
-✅ Deliverables: 
-- Django project code (GitHub or ZIP) 
-- README with setup instructions and example API calls 
-- (Optional) Postman collection 
-- Notes on what was implemented vs what's pending (if applicable) 
+
 
 
 
