@@ -3,7 +3,7 @@ from urllib import request, response
 from django.shortcuts import render
 from rest_framework import serializers, status
 from rest_framework.views import APIView, Response
-from teaShop.models import TeaMenuModel, TeaShopModel
+from teaShop.models import TeaMenuModel, TeaOrderModel, TeaShopModel
 from teaShop.serializer import MenuSerializer, OrderSerializer, ShopSerializer
 
 
@@ -59,9 +59,21 @@ class TeaOrderView(APIView):
     serializer_class=OrderSerializer
 
     def post(self,request):
-        serializer=OrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        tea_id= request.data.get('tea')
+        quantity=int( request.data.get('quantity'))
+
+        try:
+            tea_menu=TeaMenuModel.objects.get(id=tea_id)
+        except TeaMenuModel.DoesNotExist:
+            return Response({"error": "Tea not found"}, status=status.HTTP_404_NOT_FOUND)
+        
+        if tea_menu.available_quantity < quantity:
+            return Response({"error": "Insufficient quantity"}, status=status.HTTP_400_BAD_REQUEST)
+        
+
+        tea_menu.available_quantity-=quantity
+        tea_menu.save()
+
+        order= TeaOrderModel.objects.create(tea=tea_menu,quantity=quantity,order_status='completed')
+
+        return Response({ "total_price": order.total_price, "order_id": order.id,"quantity": order.quantity,"tea_id": order.tea.id,"order_status": order.order_status}, status=status.HTTP_201_CREATED)
