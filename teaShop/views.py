@@ -15,7 +15,7 @@ class TeaShopView(APIView):
     serializer_class=ShopSerializer
 
     def get(self,request):
-        teas_shop=TeaShopModel.objects.all()
+        teas_shop=TeaShopModel.objects.all().order_by('-rating')
         serializer=ShopSerializer(teas_shop,many=True)
         return Response(serializer.data,status=200)
 
