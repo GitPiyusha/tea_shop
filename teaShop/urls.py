@@ -5,6 +5,7 @@ from .views import TeaMenuView, TeaOrderView, TeaShopView
 
 urlpatterns = [
     path('shop_list', TeaShopView.as_view(), name='teaShop'),
+    path('inventory/<int:id>/', TeaMenuView.as_view(), name='teaMenu'),
     path('inventory', TeaMenuView.as_view(), name='teaMenu'),
     path('order', TeaOrderView.as_view(), name='teaOrder'),
 ]

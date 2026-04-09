@@ -1,6 +1,6 @@
 from urllib import request, response
 
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from rest_framework import serializers, status
 from rest_framework.views import APIView, Response
 from teaShop.models import TeaMenuModel, TeaOrderModel, TeaShopModel
@@ -42,9 +42,14 @@ class TeaShopView(APIView):
 class TeaMenuView(APIView):
     serializer_class=MenuSerializer
 
-    def get(self,request):
-        tea_menu=TeaMenuModel.objects.all()
-        serializer=MenuSerializer(tea_menu,many=True)
+    def get(self,request,id=None):
+        if id and not None:
+            tea_menu = get_object_or_404(TeaMenuModel, id=id)
+            serializer = MenuSerializer(tea_menu) 
+        else:
+            tea_menu=TeaMenuModel.objects.all()
+            serializer=MenuSerializer(tea_menu,many=True)
+
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     def post(self,request):
