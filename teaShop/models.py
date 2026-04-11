@@ -12,11 +12,12 @@ class TeaShopModel(models.Model):
     
 class TeaMenuModel(models.Model):
     tea_shop=models.ForeignKey(TeaShopModel,on_delete=models.CASCADE,related_name='tea_shop')
-    available_quantity=models.IntegerField()
+    flavour=models.CharField(max_length=100, default='Classic')
+    available_quantity=models.PositiveIntegerField()
     price_per_cup=models.FloatField()
 
     def __str__(self):
-        return self.tea_shop.name
+        return f"{self.tea_shop.name} - {self.flavour}"
 
 
 class TeaOrderModel(models.Model):

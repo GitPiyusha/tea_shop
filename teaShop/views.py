@@ -42,15 +42,15 @@ class TeaShopView(APIView):
 class TeaMenuView(APIView):
     serializer_class=MenuSerializer
 
-    def get(self,request,id=None):
-        if id and not None:
-            tea_menu = get_object_or_404(TeaMenuModel, id=id)
-            serializer = MenuSerializer(tea_menu) 
-        else:
+    def get(self,request,tea_shop):
+            tea_menu=TeaMenuModel.objects.filter(tea_shop_id=tea_shop)
+            serializer=MenuSerializer(tea_menu,many=True)
+            return Response(serializer.data, status=200)
+    
+    def get(self,request):
             tea_menu=TeaMenuModel.objects.all()
             serializer=MenuSerializer(tea_menu,many=True)
-
-        return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.data, status=200)
     
     def post(self,request):
         serializer=MenuSerializer(data=request.data)
