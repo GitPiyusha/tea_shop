@@ -1,5 +1,7 @@
 from django.db import models
 
+from tea_shop import tea_shop
+
 # Create your models here.
 class TeaShopModel(models.Model):
     name=models.CharField(max_length=20)
@@ -12,12 +14,15 @@ class TeaShopModel(models.Model):
     
 class TeaMenuModel(models.Model):
     tea_shop=models.ForeignKey(TeaShopModel,on_delete=models.CASCADE,related_name='tea_shop')
-    flavour=models.CharField(max_length=100, default='Classic')
+    flavour=models.CharField(max_length=20)
     available_quantity=models.PositiveIntegerField()
     price_per_cup=models.FloatField()
 
     def __str__(self):
-        return f"{self.tea_shop.name} - {self.flavour}"
+         if self.tea_shop:
+             return self.tea_shop
+         if self.flavour:
+             return self.flavour
 
 
 class TeaOrderModel(models.Model):

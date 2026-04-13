@@ -1,25 +1,26 @@
-from urllib import response
-
 from django.shortcuts import render
-from rest_framework import serializers, status
-from rest_framework.views import APIView, Response
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import CustomerFeedbackModel
 from .serializer import FeedbackSerializer
 
-# Create your views here.
 
 class CustomerFeedbackView(APIView):
-    serializer_class=FeedbackSerializer
+    serializer_class = FeedbackSerializer
 
-    def get(self,request):
-        feedbacks=CustomerFeedbackModel.objects.all()
-        serializer=FeedbackSerializer(feedbacks,many=True)
-        return Response(serializer.data,status=status.HTTP_200_OK)
+    def get(self, request, shop_id=None):
+        if shop_id:
+            feedbacks = CustomerFeedbackModel.objects.filter(shop_id=shop_id)
+        else:
+            feedbacks = CustomerFeedbackModel.objects.all()
 
-    def post(self,request):
-        serializer=self.serializer_class(data=request.data)
+        serializer = self.serializer_class(feedbacks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data,status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
