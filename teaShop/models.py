@@ -8,8 +8,8 @@ class TeaShopModel(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
-    
+        return self.name 
+        
 class TeaMenuModel(models.Model):
     tea_shop=models.ForeignKey(TeaShopModel,on_delete=models.CASCADE,related_name='tea_shop')
     flavour=models.CharField(max_length=20)
@@ -17,8 +17,8 @@ class TeaMenuModel(models.Model):
     price_per_cup=models.FloatField()
 
     def __str__(self):
-         if self.flavour:
-             return self.flavour + " - " + self.tea_shop.name
+
+        return self.tea_shop.name + " - " + self.flavour
 
 
 class TeaOrderModel(models.Model):
