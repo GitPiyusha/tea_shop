@@ -19,6 +19,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
                 return data
             
             def validate(self, attrs):
+                print(attrs)
                 shop = attrs.get('shop')
                 flavour = attrs.get('flavour')
 
@@ -26,7 +27,7 @@ class FeedbackSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError("Shop and flavour are required.")
 
                 # Check if flavour exists in that shop
-                if not shop.tea_shop.filter(flavour=flavour).exists():
+                if not shop.tea_shop.filter(id=flavour.id).exists():
                     raise serializers.ValidationError(
                         "The specified flavour is not available in the tea shop."
                     )
