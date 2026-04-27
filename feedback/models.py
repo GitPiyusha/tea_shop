@@ -7,6 +7,7 @@ class CustomerFeedbackModel(models.Model):
     shop=models.ForeignKey(TeaShopModel, on_delete=models.CASCADE, related_name='feedback_shop')
     flavour=models.ForeignKey(TeaMenuModel, on_delete=models.CASCADE, related_name='feedback_tea')
     customer_name=models.CharField(max_length=100)
+    customer_email=models.EmailField( blank=False, null=False)
     rating=models.FloatField()
     feedback=models.TextField()
 

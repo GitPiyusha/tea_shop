@@ -8,7 +8,6 @@ class EmailServices():
             s.starttls()
             s.login( os.getenv("EMAIL_ID"), os.getenv("EMAIL_PASSWORD"))
 
-            message = "Hello "
             s.sendmail(os.getenv("EMAIL_ID"), recipient, message)
             s.quit()
         except Exception as e:

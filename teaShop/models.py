@@ -26,6 +26,7 @@ class TeaOrderModel(models.Model):
     quantity=models.IntegerField()
     total_price=models.FloatField(blank=True, null=True)
     ordered_at=models.DateTimeField(auto_now_add=True)
+    customer_email=models.EmailField(blank=False, null=False)
     order_status=models.CharField(choices=[('pending','pending'),('completed','completed')],default='pending')
 
     def save(self, *args, **kwargs):
