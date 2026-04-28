@@ -79,6 +79,12 @@ class TeaOrderView(APIView):
         tea_menu.available_quantity-=quantity
         tea_menu.save()
 
-        order= TeaOrderModel.objects.create(tea=tea_menu,quantity=quantity,order_status='completed')
+        order= TeaOrderModel.objects.create(tea=tea_menu,quantity=quantity,order_status='pending',customer_email=request.data.get('customer_email'))
 
         return Response({ "total_price": order.total_price, "order_id": order.id,"quantity": order.quantity,"tea_id": order.tea.id,"order_status": order.order_status}, status=status.HTTP_201_CREATED)
+    
+
+    def get(self,request):
+        orders=TeaOrderModel.objects.all()
+        serializer=OrderSerializer(orders,many=True)
+        return Response(serializer.data, status=200)

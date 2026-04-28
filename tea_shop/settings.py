@@ -128,4 +128,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-
+#CELERY SETTINGS
+CELERY_BROKER_URL='redis://localhost:6379/0'
