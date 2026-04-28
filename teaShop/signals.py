@@ -2,7 +2,8 @@ import os
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-from services.email_service import EmailServices 
+from services.email_service import EmailServices
+from teaShop.task import prepare_and_send_email 
 from .models import TeaOrderModel
 
 
@@ -13,9 +14,4 @@ def generate_invoice(sender, instance, created, **kwargs):
 
         receiver_email = instance.customer_email  
         msg = " Your order has been successfully placed! "
-
-    EmailServices().send_email(
-        message=msg,
-        sender=os.getenv('EMAIL_ID'),
-        recipient=receiver_email
-    )
+        prepare_and_send_email.delay(instance.id)       

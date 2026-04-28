@@ -2,7 +2,7 @@ import smtplib
 import os
 
 class EmailServices():
-    def send_email(self, message, sender, recipient):
+    def send_email(self, message, recipient):
         try:
             s = smtplib.SMTP('smtp.gmail.com', 587, timeout=10)
             s.starttls()
