@@ -27,7 +27,7 @@ class TeaOrderModel(models.Model):
     total_price=models.FloatField(blank=True, null=True)
     ordered_at=models.DateTimeField(auto_now_add=True)
     customer_email=models.EmailField(blank=False, null=False)
-    order_status=models.CharField(choices=[('pending','pending'),('completed','completed')],default='pending')
+    order_status=models.CharField(choices=[('pending','pending'),('completed','completed'),('cancelled','cancelled~')],default='pending')
 
     def save(self, *args, **kwargs):
         self.total_price=self.quantity*self.tea.price_per_cup
